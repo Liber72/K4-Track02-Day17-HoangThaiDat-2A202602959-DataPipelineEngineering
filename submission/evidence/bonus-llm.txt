@@ -1,0 +1,12 @@
+=== bonus: LLM labelling of 11 live tickets ===
+  cost estimate before running: ~484 tokens = $0.0010 per full run
+  uncached cost estimate before running: ~484 tokens = $0.0010
+  uncached cost estimate before running: ~0 tokens = $0.0000
+  uncached cost estimate before running: ~484 tokens = $0.0010
+  [OK ] first run labels every live ticket
+  [OK ] re-run with same model + prompt makes 0 LLM calls
+  [OK ] every Gold label is bug / billing / other
+  [OK ] off-schema answers go to llm_label_quarantine
+  [OK ] new prompt version re-labels on purpose
+  [OK ] labels carry their prompt version
+BONUS PASS

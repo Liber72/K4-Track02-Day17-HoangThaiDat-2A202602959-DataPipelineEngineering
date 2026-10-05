@@ -1,0 +1,64 @@
+03:45:42  Running with dbt=1.12.5
+03:45:42  Registered adapter: duckdb=1.11.0
+03:45:43  Found 5 models, 13 data tests, 2 sources, 502 macros, 1 unit test
+03:45:43  
+03:45:43  Concurrency: 1 threads (target='dev')
+03:45:43  
+03:45:44  1 of 19 START sql view model main.stg_events ................................... [RUN]
+03:45:44  1 of 19 OK created sql view model main.stg_events .............................. [OK in 0.09s]
+03:45:44  2 of 19 START sql view model main.stg_ticket_changes ........................... [RUN]
+03:45:44  2 of 19 OK created sql view model main.stg_ticket_changes ...................... [OK in 0.04s]
+03:45:44  3 of 19 START sql incremental model main.silver_events ......................... [RUN]
+03:45:44  3 of 19 OK created sql incremental model main.silver_events .................... [OK in 0.12s]
+03:45:44  4 of 19 START unit_test silver_tickets::silver_tickets_latest_change_wins_and_delete_is_tombstone  [RUN]
+03:45:44  4 of 19 PASS silver_tickets::silver_tickets_latest_change_wins_and_delete_is_tombstone  [PASS in 0.14s]
+03:45:44  8 of 19 START sql incremental model main.silver_tickets ........................ [RUN]
+03:45:44  8 of 19 OK created sql incremental model main.silver_tickets ................... [OK in 0.15s]
+03:45:44  5 of 19 START test not_null_silver_events_event_id ............................. [RUN]
+03:45:44  5 of 19 PASS not_null_silver_events_event_id ................................... [PASS in 0.04s]
+03:45:44  6 of 19 START test not_null_silver_events_user_id .............................. [RUN]
+03:45:44  6 of 19 PASS not_null_silver_events_user_id .................................... [PASS in 0.02s]
+03:45:44  7 of 19 START test unique_silver_events_event_id ............................... [RUN]
+03:45:44  7 of 19 PASS unique_silver_events_event_id ..................................... [PASS in 0.02s]
+03:45:44  9 of 19 START test accepted_values_silver_tickets_category__bug__billing__other  [RUN]
+03:45:44  9 of 19 PASS accepted_values_silver_tickets_category__bug__billing__other ...... [PASS in 0.03s]
+03:45:44  10 of 19 START test accepted_values_silver_tickets_priority__low__medium__high . [RUN]
+03:45:44  10 of 19 PASS accepted_values_silver_tickets_priority__low__medium__high ....... [PASS in 0.10s]
+03:45:44  11 of 19 START test accepted_values_silver_tickets_status__open__pending__closed  [RUN]
+03:45:44  11 of 19 PASS accepted_values_silver_tickets_status__open__pending__closed ..... [PASS in 0.03s]
+03:45:44  12 of 19 START test not_null_silver_tickets__lsn ............................... [RUN]
+03:45:44  12 of 19 PASS not_null_silver_tickets__lsn ..................................... [PASS in 0.02s]
+03:45:44  13 of 19 START test not_null_silver_tickets_is_deleted ......................... [RUN]
+03:45:45  13 of 19 PASS not_null_silver_tickets_is_deleted ............................... [PASS in 0.02s]
+03:45:45  14 of 19 START test not_null_silver_tickets_ticket_id .......................... [RUN]
+03:45:45  14 of 19 PASS not_null_silver_tickets_ticket_id ................................ [PASS in 0.02s]
+03:45:45  15 of 19 START test unique_silver_tickets_ticket_id ............................ [RUN]
+03:45:45  15 of 19 PASS unique_silver_tickets_ticket_id .................................. [PASS in 0.02s]
+03:45:45  16 of 19 START sql microbatch model main.gold_feature_daily .................... [RUN]
+03:45:45  Batch 1 of 7 START batch 2026-08-10 of main.gold_feature_daily ....................... [RUN]
+03:45:45  Batch 1 of 7 OK created batch 2026-08-10 of main.gold_feature_daily .................. [OK in 0.04s]
+03:45:45  Batch 2 of 7 START batch 2026-08-11 of main.gold_feature_daily ....................... [RUN]
+03:45:45  Batch 2 of 7 OK created batch 2026-08-11 of main.gold_feature_daily .................. [OK in 0.04s]
+03:45:45  Batch 3 of 7 START batch 2026-08-12 of main.gold_feature_daily ....................... [RUN]
+03:45:45  Batch 3 of 7 OK created batch 2026-08-12 of main.gold_feature_daily .................. [OK in 0.04s]
+03:45:45  Batch 4 of 7 START batch 2026-08-13 of main.gold_feature_daily ....................... [RUN]
+03:45:45  Batch 4 of 7 OK created batch 2026-08-13 of main.gold_feature_daily .................. [OK in 0.04s]
+03:45:45  Batch 5 of 7 START batch 2026-08-14 of main.gold_feature_daily ....................... [RUN]
+03:45:45  Batch 5 of 7 OK created batch 2026-08-14 of main.gold_feature_daily .................. [OK in 0.05s]
+03:45:45  Batch 6 of 7 START batch 2026-08-15 of main.gold_feature_daily ....................... [RUN]
+03:45:45  Batch 6 of 7 OK created batch 2026-08-15 of main.gold_feature_daily .................. [OK in 0.04s]
+03:45:45  Batch 7 of 7 START batch 2026-08-16 of main.gold_feature_daily ....................... [RUN]
+03:45:45  Batch 7 of 7 OK created batch 2026-08-16 of main.gold_feature_daily .................. [OK in 0.04s]
+03:45:45  16 of 19 OK created sql microbatch model main.gold_feature_daily ............... [SUCCESS in 0.32s]
+03:45:45  17 of 19 START test dbt_utils_free_unique_combination_gold_feature_daily_user_id__event_date  [RUN]
+03:45:45  17 of 19 PASS dbt_utils_free_unique_combination_gold_feature_daily_user_id__event_date  [PASS in 0.03s]
+03:45:45  18 of 19 START test not_null_gold_feature_daily_event_date ..................... [RUN]
+03:45:45  18 of 19 PASS not_null_gold_feature_daily_event_date ........................... [PASS in 0.02s]
+03:45:45  19 of 19 START test not_null_gold_feature_daily_user_id ........................ [RUN]
+03:45:45  19 of 19 PASS not_null_gold_feature_daily_user_id .............................. [PASS in 0.02s]
+03:45:45  
+03:45:45  Finished running 3 incremental models, 13 data tests, 1 unit test, 2 view models in 0 hours 0 minutes and 1.51 seconds (1.51s).
+03:45:45  
+03:45:45  Completed successfully
+03:45:45  
+03:45:45  Done. PASS=19 WARN=0 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=19

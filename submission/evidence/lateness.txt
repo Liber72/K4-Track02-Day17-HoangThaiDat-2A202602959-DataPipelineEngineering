@@ -1,0 +1,2 @@
+event lateness over 43 Bronze records (calendar days): p50=0.00 p95=2.90 p99=3.00 max=3
+-> lookback must be >= ceil(p99) = 3 day(s); config.LOOKBACK_DAYS = 3

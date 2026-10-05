@@ -1,0 +1,123 @@
+{
+  "ran_at_utc": "2026-10-05T03:33:58.184225+00:00",
+  "provider": "OpenAI",
+  "model": "gpt-4o-mini",
+  "prompt_version": "triage-api-v1",
+  "first_run": {
+    "tickets": 11,
+    "uncached_inputs": 11,
+    "estimated_tokens": 2404,
+    "estimated_output_tokens": 704,
+    "estimated_cost_usd": 0.000783,
+    "labeled": 11,
+    "quarantined": 0,
+    "calls": 11,
+    "input_tokens": 1561,
+    "output_tokens": 66,
+    "cached_input_tokens": 0,
+    "usage_cost_usd": 0.00027375
+  },
+  "cache_rerun": {
+    "tickets": 11,
+    "uncached_inputs": 0,
+    "estimated_tokens": 0,
+    "estimated_output_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "labeled": 11,
+    "quarantined": 0,
+    "calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "cached_input_tokens": 0,
+    "usage_cost_usd": 0.0
+  },
+  "labels": [
+    {
+      "ticket_id": "T-81",
+      "label": "billing",
+      "human_category": "billing",
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    },
+    {
+      "ticket_id": "T-82",
+      "label": "bug",
+      "human_category": "other",
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    },
+    {
+      "ticket_id": "T-84",
+      "label": "billing",
+      "human_category": "billing",
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    },
+    {
+      "ticket_id": "T-85",
+      "label": "other",
+      "human_category": "other",
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    },
+    {
+      "ticket_id": "T-86",
+      "label": "bug",
+      "human_category": "bug",
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    },
+    {
+      "ticket_id": "T-88",
+      "label": "bug",
+      "human_category": "bug",
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    },
+    {
+      "ticket_id": "T-89",
+      "label": "billing",
+      "human_category": "billing",
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    },
+    {
+      "ticket_id": "T-91",
+      "label": "bug",
+      "human_category": "bug",
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    },
+    {
+      "ticket_id": "T-92",
+      "label": "billing",
+      "human_category": "billing",
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    },
+    {
+      "ticket_id": "T-93",
+      "label": "other",
+      "human_category": "other",
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    },
+    {
+      "ticket_id": "T-94",
+      "label": "other",
+      "human_category": null,
+      "model": "gpt-4o-mini",
+      "prompt_version": "triage-api-v1"
+    }
+  ],
+  "usage_journal": {
+    "responses": 11,
+    "input_tokens": 1561,
+    "output_tokens": 66,
+    "usage_cost_usd": 0.00027374999999999996,
+    "response_models": [
+      "gpt-4o-mini-2024-07-18"
+    ]
+  },
+  "result": "PASS"
+}

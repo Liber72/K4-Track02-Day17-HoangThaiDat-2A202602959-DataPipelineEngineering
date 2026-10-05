@@ -11,15 +11,16 @@ expensive, slow and NOT deterministic, so the slide's four rules apply:
   3. estimate the cost BEFORE running (rows x tokens x price)
   4. LLM labels are versioned data (model + prompt_version stored on every row)
 
-The shipped `label_tickets` is the NAIVE version: it calls the model for every
-ticket on every run and writes whatever comes back. Your bonus task is to make
-`python -m scripts.bonus_llm` print BONUS PASS. Zero-key: `FakeLLM` stands in for a
-real model (swap in any provider via .env if you like — the pipeline is the same).
+Labels and rejected responses are cached by input hash, model and prompt version.
+Only validated JSON labels reach Gold; rejected responses remain in quarantine.
+The grading checker uses FakeLLM; scripts.label_api uses the real OpenAI adapter.
 """
 from __future__ import annotations
 
 import json
 import re
+from hashlib import sha256
+from typing import Protocol
 
 import duckdb
 
@@ -55,19 +56,26 @@ class FakeLLM:
         return '{"label": "other"}'
 
 
+class LabelLLM(Protocol):
+    model: str
+    calls: int
+
+    def complete(self, prompt: str) -> str: ...
+
+
 def estimate_tokens(texts: list[str]) -> int:
     return sum(len(PROMPT_TEMPLATE.format(text=t).split()) + 8 for t in texts)
 
 
 def parse_label(raw: str) -> str | None:
-    """Pull {"label": ...} out of the model's answer; None if it is not valid."""
-    m = re.search(r"\{.*\}", raw, flags=re.S)
-    if not m:
-        return None
+    """Require a JSON object containing exactly one allowed label."""
     try:
-        label = json.loads(m.group(0)).get("label")
-    except json.JSONDecodeError:
+        obj = json.loads(raw)
+    except (json.JSONDecodeError, TypeError):
         return None
+    if not isinstance(obj, dict) or set(obj) != {"label"}:
+        return None
+    label = obj["label"]
     return label if label in ALLOWED_LABELS else None
 
 
@@ -80,14 +88,85 @@ def live_tickets(con: duckdb.DuckDBPyConnection) -> list[tuple[str, str]]:
     """).fetchall()
 
 
-def label_tickets(con: duckdb.DuckDBPyConnection, llm: FakeLLM) -> dict:
-    """NAIVE version (shipped): one LLM call per ticket per run, no validation."""
+def label_tickets(con: duckdb.DuckDBPyConnection, llm: LabelLLM, *, dry_run: bool = False) -> dict:
+    """Cache both validated labels and rejected responses by input/model/prompt."""
+    con.execute("""CREATE TABLE IF NOT EXISTS llm_label_cache (
+        input_hash VARCHAR, model VARCHAR, prompt_version VARCHAR,
+        label VARCHAR, raw VARCHAR,
+        PRIMARY KEY (input_hash, model, prompt_version))""")
+    con.execute("""CREATE TABLE IF NOT EXISTS llm_label_quarantine (
+        ticket_id VARCHAR, input_hash VARCHAR, model VARCHAR, prompt_version VARCHAR,
+        raw VARCHAR, reason VARCHAR,
+        PRIMARY KEY (ticket_id, input_hash, model, prompt_version))""")
+    tickets = live_tickets(con)
+    pending = []
+    for ticket_id, text in tickets:
+        h = sha256(text.encode('utf-8')).hexdigest()
+        cached = con.execute(
+            "SELECT label, raw FROM llm_label_cache WHERE input_hash=? AND model=? AND prompt_version=?",
+            [h, llm.model, PROMPT_VERSION]).fetchone()
+        pending.append((ticket_id, text, h, cached))
+    uncached = {h: text for _, text, h, cached in pending if cached is None}
+    texts = list(uncached.values())
+    if hasattr(llm, 'estimate'):
+        estimate = llm.estimate(texts)
+    else:
+        tokens = estimate_tokens(texts)
+        estimate = {"estimated_tokens": tokens,
+                    "estimated_cost_usd": tokens / 1000 * PRICE_PER_1K_TOKENS_USD}
+    cost = estimate['estimated_cost_usd']
+    cost_text = f"${cost:.6f}" if cost is not None else 'unknown (configure model prices)'
+    print(f"  uncached cost estimate before running: ~{estimate['estimated_tokens']} input tokens, "
+          f"{len(uncached)} requests; estimated cost {cost_text}")
+    summary = {"tickets": len(tickets), "uncached_inputs": len(uncached), **estimate}
+    if dry_run:
+        return {**summary, "calls": 0, "dry_run": True}
+    before = llm.calls
+    usage_before = [getattr(llm, name, 0) for name in
+                    ('input_tokens', 'output_tokens', 'cached_input_tokens')]
     rows = []
-    for ticket_id, text in live_tickets(con):
-        raw = llm.complete(PROMPT_TEMPLATE.format(text=text))
-        rows.append((ticket_id, raw, MODEL, PROMPT_VERSION))
+    for ticket_id, text, h, cached in pending:
+        # Check again: several tickets can share identical input text.
+        cached = con.execute(
+            "SELECT label, raw FROM llm_label_cache WHERE input_hash=? AND model=? AND prompt_version=?",
+            [h, llm.model, PROMPT_VERSION]).fetchone()
+        if cached is None:
+            raw = llm.complete(PROMPT_TEMPLATE.format(text=text))
+            label = parse_label(raw)
+            usage = getattr(llm, 'last_usage', None)
+            if usage is not None:
+                con.execute("""CREATE TABLE IF NOT EXISTS llm_api_usage (
+                    response_id VARCHAR PRIMARY KEY, input_hash VARCHAR, model VARCHAR,
+                    response_model VARCHAR, prompt_version VARCHAR, input_tokens BIGINT,
+                    output_tokens BIGINT, cached_input_tokens BIGINT, cost_usd DOUBLE,
+                    response_status VARCHAR, created_at TIMESTAMP DEFAULT current_timestamp)""")
+                con.execute("""INSERT INTO llm_api_usage
+                    (response_id, input_hash, model, response_model, prompt_version,
+                     input_tokens, output_tokens, cached_input_tokens, cost_usd, response_status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                    [usage['response_id'], h, llm.model, usage['response_model'], PROMPT_VERSION,
+                     usage['input_tokens'], usage['output_tokens'], usage['cached_input_tokens'],
+                     usage['cost_usd'], usage['response_status']])
+            con.execute("INSERT INTO llm_label_cache VALUES (?, ?, ?, ?, ?)",
+                        [h, llm.model, PROMPT_VERSION, label, raw])
+        else:
+            label, raw = cached
+        if label is None:
+            con.execute("INSERT INTO llm_label_quarantine VALUES (?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING",
+                        [ticket_id, h, llm.model, PROMPT_VERSION, raw,
+                         'Expected JSON object with exactly one allowed label'])
+        else:
+            rows.append((ticket_id, label, llm.model, PROMPT_VERSION))
     con.execute("""CREATE OR REPLACE TABLE gold_ticket_labels (
         ticket_id VARCHAR, label VARCHAR, model VARCHAR, prompt_version VARCHAR)""")
     if rows:
         con.executemany("INSERT INTO gold_ticket_labels VALUES (?, ?, ?, ?)", rows)
-    return {"labeled": len(rows), "calls": llm.calls}
+    input_tokens, output_tokens, cached_tokens = [
+        getattr(llm, name, 0) - previous for name, previous in zip(
+            ('input_tokens', 'output_tokens', 'cached_input_tokens'), usage_before)]
+    actual_cost = (llm.usage_cost(input_tokens, output_tokens, cached_tokens)
+                   if hasattr(llm, 'usage_cost') else None)
+    return {**summary, "labeled": len(rows), "quarantined": len(tickets) - len(rows),
+            "calls": llm.calls - before, "input_tokens": input_tokens,
+            "output_tokens": output_tokens, "cached_input_tokens": cached_tokens,
+            "usage_cost_usd": actual_cost}

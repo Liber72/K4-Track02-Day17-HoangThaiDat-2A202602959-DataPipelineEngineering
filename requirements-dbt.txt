@@ -1,6 +1,0 @@
-# dbt track (graded, see rubric) — install on top of requirements.txt:
-#   pip install -r requirements-dbt.txt
-# Fresh and incremental builds tested on Windows / Python 3.11.4.
-# Pin the tested pair for merge_update_condition and microbatch support.
-dbt-core==1.12.5
-dbt-duckdb==1.11.0

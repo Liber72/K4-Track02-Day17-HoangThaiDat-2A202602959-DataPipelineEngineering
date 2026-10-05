@@ -1,0 +1,22 @@
+=== verify.py — Day 17 pipeline contracts ===
+  [OK ] Bronze  every daily batch landed as Parquet (7 days x 3 sources)
+  [OK ] Bronze  re-landing a batch is a no-op (append-only, no duplicate file)
+  [OK ] Bronze  Bronze keeps the raw truth: Kafka tombstone + redelivered events are still there
+  [OK ] Silver  silver_tickets has exactly one row per ticket_id
+  [OK ] Silver  T-91 shows its latest state: high / closed / bug
+  [OK ] Silver  deleted ticket T-97 is a tombstone: is_deleted and no personal data left
+  [OK ] Silver  no email / phone number survives past Bronze
+  [OK ] Silver  silver_events has one row per event_id (Kafka redeliveries removed)
+  [OK ] Silver  2 malformed events quarantined with a reason; the run did not halt
+  [OK ] Gold    gold_feature_daily reconciles with a full recompute from Silver
+  [OK ] Gold    u05's offline events of 08-12 (arrived 08-15) are counted on 08-12
+  [OK ] Gold    LOOKBACK_DAYS covers measured P99 lateness (p99=3.00 days)
+  [OK ] Gold    training set uses point-in-time priority (T-91 created as 'low')
+  [OK ] Gold    late feedback creates a NEW snapshot version; the old one is untouched
+  [OK ] Gold    latest training snapshot excludes the deleted ticket T-97
+  [OK ] Gold    deletes propagate to the RAG index: no chunk of T-97
+  [OK ] Gold    gold_doc_chunks: one row per chunk, and a re-run embeds 0 new chunks
+  [OK ] Rerun   re-run 2026-08-12 three times -> Gold checksum identical to a fresh build
+
+RESULT: 18/18 checks — ALL PASS
+re-run checksums written to submission/checksums.txt

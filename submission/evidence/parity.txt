@@ -1,0 +1,4 @@
+=== parity: lite pipeline vs dbt ===
+  [OK ] silver_tickets       lite 3c15dfd43701  dbt 3c15dfd43701
+  [OK ] gold_feature_daily   lite 8630e04a61d1  dbt 8630e04a61d1
+RESULT: PARITY — both implementations agree

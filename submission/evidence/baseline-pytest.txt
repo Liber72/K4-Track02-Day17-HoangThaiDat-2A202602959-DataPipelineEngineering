@@ -1,0 +1,193 @@
+EEEEEEEEEEEEE...........E........E                                       [100%]
+=================================== ERRORS ====================================
+____________ ERROR at setup of test_bronze_is_raw_and_append_only _____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+__________ ERROR at setup of test_silver_tickets_one_row_per_ticket ___________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+___________ ERROR at setup of test_silver_tickets_latest_state_wins ___________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+_____________ ERROR at setup of test_cdc_delete_becomes_tombstone _____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+____________ ERROR at setup of test_scd2_history_has_every_version ____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+__________ ERROR at setup of test_silver_events_dedup_and_quarantine __________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+_____ ERROR at setup of test_feature_daily_reconciles_with_full_recompute _____
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+_________ ERROR at setup of test_late_events_land_in_their_event_day __________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+__________ ERROR at setup of test_lookback_covers_measured_lateness ___________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+____________ ERROR at setup of test_training_set_is_point_in_time _____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+___________ ERROR at setup of test_training_snapshots_are_versioned ___________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+________ ERROR at setup of test_deleted_ticket_leaves_training_and_rag ________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+__________________ ERROR at setup of test_doc_chunks_unique ___________________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-32\\.lock'
+
+tests\conftest.py:12: PermissionError
+____ ERROR at setup of test_rerun_old_day_three_times_keeps_gold_checksum _____
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-42\\.lock'
+
+tests\conftest.py:12: PermissionError
+_____________ ERROR at setup of test_bronze_landing_is_idempotent _____________
+
+tmp_path_factory = TempPathFactory(_given_basetemp=None, _trace=<pluggy._tracing.TagTracerSub object at 0x0000013AB2B117E0>, _basetemp=None, _retention_count=3, _retention_policy='all')
+
+    @pytest.fixture(scope="module")
+    def sandbox(tmp_path_factory):
+        """Point the pipeline at a throw-away lake/ and warehouse.duckdb."""
+>       root = tmp_path_factory.mktemp("lab17")
+E       PermissionError: [Errno 13] Permission denied: 'C:\\Users\\Admin\\AppData\\Local\\Temp\\pytest-of-Admin\\pytest-52\\.lock'
+
+tests\conftest.py:12: PermissionError
+============================== warnings summary ===============================
+.venv\lib\site-packages\_pytest\cacheprovider.py:475
+  D:\AI_Thucchien\K4-Track02-Day17-HoangThaiDat-2A202602959-DataPipelineEngineering\.venv\lib\site-packages\_pytest\cacheprovider.py:475: PytestCacheWarning: could not create cache path D:\AI_Thucchien\K4-Track02-Day17-HoangThaiDat-2A202602959-DataPipelineEngineering\.pytest_cache\v\cache\nodeids: [WinError 5] Access is denied: 'D:\\AI_Thucchien\\K4-Track02-Day17-HoangThaiDat-2A202602959-DataPipelineEngineering\\.pytest_cache\\v\\cache'
+    config.cache.set("cache/nodeids", sorted(self.cached_nodeids))
+
+.venv\lib\site-packages\_pytest\cacheprovider.py:429
+  D:\AI_Thucchien\K4-Track02-Day17-HoangThaiDat-2A202602959-DataPipelineEngineering\.venv\lib\site-packages\_pytest\cacheprovider.py:429: PytestCacheWarning: could not create cache path D:\AI_Thucchien\K4-Track02-Day17-HoangThaiDat-2A202602959-DataPipelineEngineering\.pytest_cache\v\cache\lastfailed: [WinError 5] Access is denied: 'D:\\AI_Thucchien\\K4-Track02-Day17-HoangThaiDat-2A202602959-DataPipelineEngineering\\.pytest_cache\\v\\cache'
+    config.cache.set("cache/lastfailed", self.lastfailed)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+ERROR tests/test_contracts.py::test_bronze_is_raw_and_append_only - Permissio...
+ERROR tests/test_contracts.py::test_silver_tickets_one_row_per_ticket - Permi...
+ERROR tests/test_contracts.py::test_silver_tickets_latest_state_wins - Permis...
+ERROR tests/test_contracts.py::test_cdc_delete_becomes_tombstone - Permission...
+ERROR tests/test_contracts.py::test_scd2_history_has_every_version - Permissi...
+ERROR tests/test_contracts.py::test_silver_events_dedup_and_quarantine - Perm...
+ERROR tests/test_contracts.py::test_feature_daily_reconciles_with_full_recompute
+ERROR tests/test_contracts.py::test_late_events_land_in_their_event_day - Per...
+ERROR tests/test_contracts.py::test_lookback_covers_measured_lateness - Permi...
+ERROR tests/test_contracts.py::test_training_set_is_point_in_time - Permissio...
+ERROR tests/test_contracts.py::test_training_snapshots_are_versioned - Permis...
+ERROR tests/test_contracts.py::test_deleted_ticket_leaves_training_and_rag - ...
+ERROR tests/test_contracts.py::test_doc_chunks_unique - PermissionError: [Err...
+ERROR tests/test_rerun.py::test_rerun_old_day_three_times_keeps_gold_checksum
+ERROR tests/test_units.py::test_bronze_landing_is_idempotent - PermissionErro...

@@ -1,0 +1,23 @@
+=== Day 17 bonus: Knowledge Graph vs Vector RAG ===
+  nodes (entities): 5
+    (accessory) -[SHIPS_FROM]-> (hanoi fulfillment center)
+    (gadget) -[IS_A]-> (accessory)
+    (gadget) -[HAS_WARRANTY]-> (90 days)
+    (industrial-part) -[SHIPS_FROM]-> (hai phong fulfillment center)
+    (sprocket) -[IS_A]-> (industrial-part)
+    (sprocket) -[NON_RETURNABLE]-> (final sale)
+    (widget) -[IS_A]-> (accessory)
+    (widget) -[RETURNABLE_WITHIN]-> (30 days)
+
+  Q: 'Where does a widget ship from?'
+
+  [Vector RAG] flat chunk retrieval:
+    chunk mentioning 'widget' : 'Widgets and gadgets belong to the accessory category.'
+    chunk mentioning 'hanoi'  : 'Accessories ship from the Hanoi fulfillment center.'
+    one chunk that answers it (has BOTH): False  => flat retrieval CANNOT bridge the two facts
+
+  [Knowledge graph] multi-hop traverse:
+    widget  ->  accessory  ->  hanoi fulfillment center   (2 hops)  => hanoi fulfillment center
+
+  1-hop  widget / RETURNABLE_WITHIN : [('RETURNABLE_WITHIN', '30 days')]
+  multi-node 'what is returnable?'  : ['widget']

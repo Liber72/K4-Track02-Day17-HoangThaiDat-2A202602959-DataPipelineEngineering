@@ -1,0 +1,4 @@
+  uncached cost estimate before running: ~50 tokens = $0.0001
+  uncached cost estimate before running: ~0 tokens = $0.0000
+  uncached cost estimate before running: ~50 tokens = $0.0001
+PASS: duplicate input cache, rejected response replay, model invalidation, strict schema

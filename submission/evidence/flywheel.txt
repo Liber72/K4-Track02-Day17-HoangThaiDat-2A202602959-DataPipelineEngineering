@@ -1,0 +1,24 @@
+=== Day 17 flywheel: agent traces -> datasets ===
+  spans landed in Bronze   : 21 (from 8 traces)
+  eval golden rows         : 2  -> eval_golden.jsonl
+  preference pairs (raw)   : 3
+  preference pairs (clean) : 1  -> preference_pairs.jsonl  (2 dropped by decontamination)
+
+Per-trace summary (the analyst view):
+trace_id                                  user_input                                                                                     agent_output outcome  total_tokens  latency_ms  n_spans
+   t0001 Can I return a widget I bought 10 days ago? Yes. Widgets can be returned within 30 days for a full refund, so a 10-day-old widget qualifies.      ok         578.0        1840        3
+   t0002           What warranty does a gadget have?                          Gadgets carry a 90-day limited warranty covering manufacturing defects.      ok         534.0        2110        3
+   t0003 Can I return a widget I bought 10 days ago?                 Sorry, I could not look up the returns policy right now. Please try again later.   error           0.0         980        2
+   t0004                   Are sprockets returnable?                                 No. Sprockets are final sale and cannot be returned once opened.      ok         524.0        1520        3
+   t0005           What warranty does a gadget have?                                                                 I am not able to help with that.   error         499.0         760        2
+   t0006            How long is the gadget warranty?                        A gadget has a 90-day limited warranty that covers manufacturing defects.      ok         548.0        1990        3
+   t0007  Do you accept returns on opened sprockets?                                No. Once opened, sprockets are final sale and cannot be returned.      ok         530.0        1610        3
+   t0008  Do you accept returns on opened sprockets?                                   Sure! You can return opened sprockets any time within 30 days.   error         511.0         890        2
+
+Point-in-time features (ASOF, correct) vs naive (leaky):
+user_id            event_ts  spend_at_event  spend_leaky
+   u100 2026-06-01 10:00:00            50.0        300.0
+   u100 2026-06-03 09:00:00           120.0        300.0
+   u101 2026-06-02 12:00:00            20.0         20.0
+
+  rows where the naive join LEAKED a future value: 2

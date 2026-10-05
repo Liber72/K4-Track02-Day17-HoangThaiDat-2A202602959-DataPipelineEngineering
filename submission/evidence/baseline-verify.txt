@@ -1,0 +1,22 @@
+=== verify.py — Day 17 pipeline contracts ===
+  [OK ] Bronze  every daily batch landed as Parquet (7 days x 3 sources)
+  [OK ] Bronze  re-landing a batch is a no-op (append-only, no duplicate file)
+  [OK ] Bronze  Bronze keeps the raw truth: Kafka tombstone + redelivered events are still there
+  [XX ] Silver  silver_tickets has exactly one row per ticket_id  (24 rows for 12 tickets)
+  [XX ] Silver  T-91 shows its latest state: high / closed / bug  (got [('low', 'open', None), ('high', 'open', None), ('high', 'closed', 'bug')])
+  [XX ] Silver  deleted ticket T-97 is a tombstone: is_deleted and no personal data left  (got [(False, 'u06', 'Yêu cầu xoá tài khoản', 'Tôi là Nguyễn Văn An, email <EMAIL>, sđt <PHONE>. Xin xoá toàn bộ dữ liệu của tôi.'), (False, 'u06', 'Yêu cầu xoá tài khoản', 'Tôi là Nguyễn Văn An, email <EMAIL>, sđt <PHONE>. Xin xoá toàn bộ dữ liệu của tôi.')])
+  [OK ] Silver  no email / phone number survives past Bronze
+  [OK ] Silver  silver_events has one row per event_id (Kafka redeliveries removed)
+  [OK ] Silver  2 malformed events quarantined with a reason; the run did not halt
+  [XX ] Gold    gold_feature_daily reconciles with a full recompute from Silver  (c50b8851affe != 8630e04a61d1)
+  [XX ] Gold    u05's offline events of 08-12 (arrived 08-15) are counted on 08-12  (got (2, 0), expected (5, 1))
+  [XX ] Gold    LOOKBACK_DAYS covers measured P99 lateness (p99=3.00 days)  (LOOKBACK_DAYS=0 < 3)
+  [OK ] Gold    training set uses point-in-time priority (T-91 created as 'low')
+  [OK ] Gold    late feedback creates a NEW snapshot version; the old one is untouched
+  [XX ] Gold    latest training snapshot excludes the deleted ticket T-97  (1 row(s))
+  [XX ] Gold    deletes propagate to the RAG index: no chunk of T-97  (2 chunk(s))
+  [XX ] Gold    gold_doc_chunks: one row per chunk, and a re-run embeds 0 new chunks  (22 rows / 9 chunks, embedded 0)
+  [XX ] Rerun   re-run 2026-08-12 three times -> Gold checksum identical to a fresh build  (see submission/checksums.txt)
+
+RESULT: 8/18 checks — FAILURES ABOVE
+re-run checksums written to submission/checksums.txt
